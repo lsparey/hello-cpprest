@@ -2,7 +2,7 @@
 
 int main()
 {
-	auto prefix = U("http://localhost:8888/");
+	auto prefix = U("http://0.0.0.0:8888/");
 	auto listener = web::http::experimental::listener::http_listener(prefix);
 
 	listener.support(web::http::methods::GET, [](web::http::http_request request)
