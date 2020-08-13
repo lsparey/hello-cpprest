@@ -1,6 +1,7 @@
-FROM ubuntu:bionic AS build-env
+FROM ubuntu:focal AS build-env
 
 #prepare build environment
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y build-essential cmake ninja-build git curl unzip tar
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -17,7 +18,7 @@ RUN cmake -DCMAKE_TOOLCHAIN_FILE="/home/build/vcpkg/scripts/buildsystems/vcpkg.c
 RUN cmake --build .
 
 #create image
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 COPY --from=build-env /home/build/hello-cpprest/build/hello-cpprest /usr/hello-cpprest/
 
